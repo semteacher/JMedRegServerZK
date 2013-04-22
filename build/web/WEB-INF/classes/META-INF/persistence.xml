@@ -18,7 +18,7 @@
     <class>tdmubeans.TblLogin</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tdmu"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.1.19:3306/tdmu"/>
       <property name="javax.persistence.jdbc.password" value="19tdmu57"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="tdmuauth"/>
