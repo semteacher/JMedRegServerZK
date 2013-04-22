@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page id="pgLogin" title="Медична Реєстратура - статистичний додаток: авторизація"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window id="loginwin" border="normal" mode="overlapped" position="center" use="jmedregcontrollers.ZkLoginWinController">
+        <vbox>
+            <hbox height="30px" width="460px" align="center" pack="center">                
+                <label value="Будь-ласка, авторизуйтесь" style="font-weight:bold;font-size:11pt"/>
+            </hbox>
+            <separator bar="true"/>
+            <hbox  height="30px" width="460px" align="center">
+                <cell align="right" hflex="1">
+                    <label value="Логін:"/>
+                </cell>
+                <cell  hflex="2">
+                    <textbox id="userlogin" width="150px"/>
+                </cell>
+            </hbox>
+            <hbox  height="30px" width="460px" align="center"> 
+                <cell align="right" hflex="1">
+                    <label value="Пароль:"/>
+                </cell>
+                <cell  hflex="2">
+                    <textbox id="userpasswd" type="password" width="150px"/>
+                </cell>
+           
+            </hbox> 
+            <hbox height="32px" width="460px" align="center" pack="center">                
+                <vbox align="center" pack="center">
+                <button id="loginBtn" label="Увійти" width="100px" height="30px" mold="trendy" style="font-weight:bold;font-size:11pt" onClick="loginwin.loginBtnClick()"/>
+                <label id="loginResMsg" />
+                </vbox>
+            </hbox>
+            <separator bar="true"/>            
+            <vbox width="460px" align="center" pack="center">                
+                <label value="Не можете увійти?" style="font-weight:bold;font-size:10pt"/>
+                <label value="Перевірте правильність введення логіна і пароля (усі  літери маленькі)."/>
+               <hbox> 
+                <label value="Прочитайте "/> <a href="http://www.tdmu.edu.te.ua/ukr/news/news5.php" label="повідомлення стосовно доступу в інтранет."/>
+                </hbox>
+            </vbox>            
+        </vbox>            
+    </window>
+</zk>

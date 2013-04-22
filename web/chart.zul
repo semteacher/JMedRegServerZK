@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
+<?page id="pgChart" title="Медична Реєстратура - статистичний додаток"?>
+<!--
+index.zul
+
+{{IS_NOTE
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon Jun 12 21:23:35     2006, Created by tomyeh
+		Fri May 01 04:36:35     2009, Modified by stera
+}}IS_NOTE
+
+Copyright (C) 2006 Potix Corporation. All Rights Reserved.
+
+{{IS_RIGHT
+}}IS_RIGHT
+-->
+<zk xmlns="http://www.zkoss.org/2005/zul">  
+    <window id="mainwin" title="Відвідуваність навчально-практичних центрів первинної медико-санітарної допомоги ТДМУ" hflex="1" vflex="1" use="jmedregcontrollers.ZkChartWinController" border="normal">
+        <vbox hflex="1" vflex="1">   
+            <hbox hflex="1" vflex="3" align="stretch" pack="end">
+                <panel hflex="1" vflex="1" framable="true" border="normal" style="margin-bottom:3px">
+                    <panelchildren>
+                        <flashchart id="mychartid" height="100%" width="100%"/> 
+                    </panelchildren>
+                </panel>
+                <vbox width="300px" vflex="1">
+                    <panel vflex="1" hflex="1" framable="true" 
+                       border="normal" style="margin-bottom:3px">
+                        <panelchildren style="overflow: auto">
+                            <listbox id="stattype" rows="0" checkmark="true" multiple="false" onSelect="mainwin.onStatModeSelect()">
+                                <listhead>
+                                    <listheader label="Показати відвідуваність НПЦПМСД пацієнтами:"/>
+                                </listhead>
+                                <listitem id="a" value="A">
+                                    <listcell id="togethercell" label="Сумарно по всіх НПЦПМСД"/>
+                                </listitem>
+                                <listitem id="b" value="B">
+                                    <listcell id="separcell" label="По окремих НПЦПМСД:"/>
+                                </listitem>
+                            </listbox>                         
+                            <listbox id="officeslistbox" model="@{mainwin.medOffices}" onSelect="mainwin.onOfficeSelect()" fixedLayout="true" multiple="true" checkmark="true" nonselectableTags="*">                        
+                                <listhead>
+                                    <listheader label="Всі\вибрані НПЦПМСД:" hflex="2"/>
+                                    <listheader label="Нас.пункт.:" hflex="1"/>
+                                </listhead>
+                                <listitem self="@{each=medOffices}" value="@{medOffices}">
+                                    <listcell label="@{medOffices.name}" />
+                                    <listcell label="@{medOffices.town}" />
+                            <!--
+                            <listcell label="@{medOffices.name} @{medOffices.town}" />
+                            -->
+                                </listitem>
+                            </listbox>
+                        </panelchildren>
+                    </panel>
+                    <panel vflex="min" hflex="1" framable="true" border="normal" style="margin-bottom:3px">
+                        <panelchildren>
+                            <listbox id="statperiod" rows="0" checkmark="true" multiple="false" onSelect="mainwin.onStatPeriodSelect()">
+                                <listhead>
+                                    <listheader label="Відвідуваність за період:"/>
+                                </listhead>
+                                <listitem id="alltime" value="getalltime">
+                                    <listcell id="alltimemsg" label="За весь час"/>
+                                </listitem>
+                                <listitem id="selectedtime" value="getselectedtime">
+                                    <listcell id="selectedtimemsg" label="Виберіть інтервал:"/>
+                                </listitem>
+                            
+                            </listbox>
+                            <groupbox id="dategroupgb" mold="3d">
+                                <hbox>
+                                    <div>
+                                        <label value="Початок:"/>   
+                                        <datebox id="startdb" mold="rounded" constraint="no empty, no future" onChange="mainwin.onStartDateChange()"/>
+                                    </div>
+                                    <div>
+                                        <label value="Кінець:"/>   
+                                        <datebox id="enddb" cols="12" format="medium" mold="rounded" constraint="no empty, no future" onChange="mainwin.onEndDateChange()"/>
+                                    </div>
+                                </hbox>
+                            </groupbox>
+                        </panelchildren>
+                    </panel>
+                </vbox>
+            </hbox>
+            <hbox hflex="1" vflex="1">
+                <panel hflex="1" vflex="1" framable="true" title="Надання статистичних даних відповідальними працівниками НПЦПМСД:" border="normal" style="margin-bottom:3px">
+                    <panelchildren style="overflow: auto">
+<!--
+                        <grid hflex="1" vflex="1" id="myzkid2" model="@{mainwin.officeStatInfo, load-after='stattype.onSelect, officeslistbox.onSelect'}" autopaging="true" mold="paging" pagingPosition="top">
+-->                           
+<!--    WORK SOME BEST WITH   style="overflow: auto" RATHER THEN ABOVE    -->                  
+                        <grid hflex="1" vflex="1" id="myzkid2" model="@{mainwin.officeStatInfo, load-after='stattype.onSelect, officeslistbox.onSelect'}">                            
+                        
+                            <columns>
+                                <column label="НПЦПМСД:"/>
+                                <column label="Нас. пункт:"/>
+                                <column label="Дата:"/>
+                                <column label="Відповідальний:"/>
+                                <column label="Пацієнтів:"/>
+                                <column label="Змінено:"/>
+                            </columns>
+                            <rows>
+                                <row self="@{each=officeStatInfo}">
+                                    <label value="@{officeStatInfo.officeId.name}"/>
+                                    <label value="@{officeStatInfo.officeId.town}"/>
+                                    <label value="@{officeStatInfo.statDate}"/>
+                                    <label value="@{officeStatInfo.staffFio}"/>
+                                    <label value="@{officeStatInfo.patientTotal}"/>
+                                    <label value="@{officeStatInfo.updRecord}"/>
+                                </row>
+                            </rows>
+                        </grid>
+                    </panelchildren>
+                </panel>
+            </hbox>
+        </vbox> 
+    </window>
+</zk>
