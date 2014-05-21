@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import jmedregbeans.Medoffice;
 
-@Generated(value="EclipseLink-2.3.0.v20110604-r9504", date="2012-03-03T14:33:23")
+@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2014-05-20T21:07:45")
 @StaticMetamodel(Statdetail.class)
 public class Statdetail_ { 
 

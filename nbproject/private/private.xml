@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/MyGitHub/java/JMedRegServerZK/src/conf/persistence.xml</file>
+            <file>file:/D:/MyGitHub/java/JMedRegServerZK/web/WEB-INF/web.xml</file>
+            <file>file:/D:/MyGitHub/java/JMedRegServerZK/web/index.zul</file>
+            <file>file:/D:/MyGitHub/java/JMedRegServerZK/src/java/jmedregcontrollers/ZkLoginWinController.java</file>
+            <file>file:/D:/MyGitHub/java/JMedRegServerZK/web/chart.zul</file>
+        </group>
+    </open-files>
 </project-private>
