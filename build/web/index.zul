@@ -30,6 +30,12 @@
                 <label id="loginResMsg" />
                 </vbox>
             </hbox>
+            <hbox height="32px" width="460px" align="center" pack="center">                
+                <vbox align="center" pack="center">
+                <button id="loginGoogleBtn" label="Увійти (Google)" width="100px" height="30px" mold="trendy" style="font-weight:bold;font-size:11pt" onClick="loginwin.loginGoogleBtnClick()"/>
+                <label id="loginGoogleResMsg" />
+                </vbox>
+            </hbox>            
             <separator bar="true"/>            
             <vbox width="460px" align="center" pack="center">                
                 <label value="Не можете увійти?" style="font-weight:bold;font-size:10pt"/>
