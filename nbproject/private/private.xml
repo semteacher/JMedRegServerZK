@@ -6,7 +6,6 @@
         <group>
             <file>file:/D:/MyGitHub/java/JMedRegServerZK/web/index.zul</file>
             <file>file:/D:/MyGitHub/java/JMedRegServerZK/src/java/jmedregcontrollers/ZkLoginWinController.java</file>
-            <file>file:/D:/MyGitHub/java/JMedRegServerZK/src/java/com/danter/google/auth/GoogleAuthHelper.java</file>
         </group>
     </open-files>
 </project-private>
