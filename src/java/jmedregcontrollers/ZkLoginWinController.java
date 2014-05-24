@@ -17,7 +17,7 @@ import com.danter.google.auth.GoogleAuthHelper;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONArray;
+//import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -31,6 +31,7 @@ public class ZkLoginWinController extends Window {
     private Textbox loginBox;
     private Textbox paswdBox;
     private Label loginResLabel;
+    private Label loginGoogleResLabel;
     //data objects
     private EntityManagerFactory emf;
     
@@ -107,6 +108,7 @@ public class ZkLoginWinController extends Window {
         loginBox = (Textbox) this.getFellow("userlogin");
         paswdBox = (Textbox) this.getFellow("userpasswd");
         loginResLabel = (Label) this.getFellow("loginResMsg");
+        loginGoogleResLabel = (Label) this.getFellow("loginGoogleResMsg");
         //default
         loginBox.setFocus(true);
 
@@ -114,40 +116,19 @@ public class ZkLoginWinController extends Window {
         myzkSession = Sessions.getCurrent(true); //get session
         
 	if ( request.getParameter("code") == null || request.getParameter("state") == null) {
-				/*
-				 * initial visit to the page
-				 */
-				//out.println("<a href='" + helper.buildLoginUrl()
-				//		+ "'>log in with google</a>");			
-				/*
-				 * set the secure state token in session to be able to track what we sent to google
-				 */
             myzkSession.setAttribute("state", helper.getStateToken());
         } else if (request.getParameter("code") != null && request.getParameter("state") != null
 					&& request.getParameter("state").equals(myzkSession.getAttribute("state"))) {
-				/*
-				 * Executes after google redirects to the callback url.
-				 * Please note that the state request parameter is for convenience to differentiate
-				 * between authentication methods (ex. facebook oauth, google oauth, twitter, in-house).
-				 * 
-				 * GoogleAuthHelper()#getUserInfoJson(String) method returns a String containing
-				 * the json representation of the authenticated user's information. 
-				 * At this point you should parse and persist the info.
-				 */
-				///out.println("<pre>");
-				///out.println(helper.getUserInfoJson(request.getParameter("code")));
-				///out.println("</pre>");
             myzkSession.removeAttribute("state");
-            loginResLabel.setStyle("color:black");
+            loginGoogleResLabel.setStyle("color:black");
             	JSONParser jsonParser = new JSONParser();
 	        JSONObject jsonObject = (JSONObject) jsonParser.parse(helper.getUserInfoJson(request.getParameter("code")));
                 String logemail = (String) jsonObject.get("email");
-                
+                String logname = (String) jsonObject.get("name");
                 String googleuseridstr = (String) jsonObject.get("id");
                 //long googleuserid =  Long.valueOf(googleuseridstr);
-            loginResLabel.setValue("Дякуємо за Google-авторизацію, "+logemail+" . Відбувається перенаправлення...");                
+            loginGoogleResLabel.setValue("Дякуємо за Google-авторизацію, "+logname+". Відбувається перенаправлення...");                
             //loginResLabel.setValue(helper.getUserInfoJson(request.getParameter("code")));
-            //TODO: redirect only for the *tdmu emails
             setUserIdToSession(8888);//set new user logged_id to session
             Executions.sendRedirect("chart.zul");//successfull login
 	}  

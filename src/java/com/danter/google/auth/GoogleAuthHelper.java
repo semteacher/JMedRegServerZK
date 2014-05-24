@@ -9,11 +9,14 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+
+
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson.JacksonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * A helper class for Google's OAuth2 authentication API.
@@ -37,9 +40,13 @@ public final class GoogleAuthHelper {
 	private static final String CALLBACK_URI = "http://localhost:8080/JMedRegServerZK/index.zul";
 	
 	// start google authentication constants
-	private static final Iterable<String> SCOPE = Arrays.asList("https://www.googleapis.com/auth/userinfo.profile;https://www.googleapis.com/auth/userinfo.email".split(";"));
+	//private static final Iterable<String> SCOPE = Arrays.asList("https://www.googleapis.com/auth/userinfo.profile;https://www.googleapis.com/auth/userinfo.email".split(";"));
+        private static final Collection<String> SCOPE = Arrays.asList("https://www.googleapis.com/auth/userinfo.profile;https://www.googleapis.com/auth/userinfo.email".split(";"));
 	private static final String USER_INFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
+        //private static final JacksonFactory JSON_FACTORY = new JacksonFactory();
+        //private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	// end google authentication constants
 	
@@ -63,8 +70,9 @@ public final class GoogleAuthHelper {
 	public String buildLoginUrl() {
 		
 		final GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
-		
-		return url.setRedirectUri(CALLBACK_URI).setState(stateToken).build();
+                String tdmu_domain = "tdmu.edu.ua";
+		return url.setRedirectUri(CALLBACK_URI).setState(stateToken).set("hd", tdmu_domain).build();
+		//return url.setRedirectUri(CALLBACK_URI).setState(stateToken).build();
 	}
 	
 	/**
@@ -89,6 +97,7 @@ public final class GoogleAuthHelper {
 	 * Expects an Authentication Code, and makes an authenticated request for the user's profile information
 	 * @return JSON formatted user profile information
 	 * @param authCode authentication code provided by google
+     * @throws java.io.IOException
 	 */
 	public String getUserInfoJson(final String authCode) throws IOException {
 
